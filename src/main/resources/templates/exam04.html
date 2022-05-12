@@ -7,13 +7,23 @@
     <title>Document</title>
 </head>
 <body>
+
     <h2>ユーザ登録</h2>
-    <form action="exam04.html" th:action="@{exam04/result}" method="post">
-        名前：<input type="text" name="name"> <br>
-        年齢：<input type="text" name="age"> <br>
-        コメント：<textarea name="comment" cols="30" rows="10"> </textarea> <br>
+    
+    <form action="exam04.html" th:action="@{exam04/result}" th:object="${userForm}" method="post">
+    
+        <div th:errors="*{name}" style="color:red"> エラー</div>
+        名前：<input type="text" name="name"　th:field="*{name}"> <br>
+        
+        <div th:errors="*{age}" style="color:red"> エラー</div>
+        年齢：<input type="text" name="age" th:field="*{age}"> <br>
+        
+        <div th:errors="*{comment}" style="color:red"> エラー</div>
+        コメント：<textarea name="comment" cols="30" rows="10" th:field="*{comment}"> </textarea> <br>
+        
         <button>登録</button>
     </form>
     
 </body>
 </html>
+

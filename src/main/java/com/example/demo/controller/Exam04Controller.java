@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,12 +23,16 @@ public class Exam04Controller {
 	}
 	
 	@RequestMapping("")
-	public String index() {
+	public String index(Model model) {
 		return "exam04";
 	}
 	
 	@RequestMapping("result")
-	public String result(UserForm userForm,Model model) {
+	public String result(@Validated UserForm userForm,BindingResult result,Model model) {
+		
+		if(result.hasErrors()) {
+			return index(model);
+		}
 		
 		User user=new User();
 		BeanUtils.copyProperties(userForm,user);
@@ -34,5 +40,11 @@ public class Exam04Controller {
 		
 		return "exam04-result";
 	}
+	
+	public String toresult() {
+		return "result";
+	}
+
 
 }
+
